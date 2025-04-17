@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Tải Client Roblox - Designed by HieuDz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #2a2a4a);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 5s ease infinite;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            background: linear-gradient(90deg, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 5s ease infinite;
+        }
+
+        .admin-login-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 15px;
+            background: #ff007a;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .admin-login-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #00ddeb;
+            text-shadow: 0 0 10px rgba(0, 221, 235, 0.5);
+        }
+
+        .client-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .client-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .client-card:nth-child(1) { animation-delay: 0.1s; }
+        .client-card:nth-child(2) { animation-delay: 0.2s; }
+        .client-card:nth-child(3) { animation-delay: 0.3s; }
+        .client-card:nth-child(4) { animation-delay: 0.4s; }
+        .client-card:nth-child(5) { animation-delay: 0.5s; }
+        .client-card:nth-child(6) { animation-delay: 0.6s; }
+        .client-card:nth-child(7) { animation-delay: 0.7s; }
+        .client-card:nth-child(8) { animation-delay: 0.8s; }
+        .client-card:nth-child(9) { animation-delay: 0.9s; }
+
+        .client-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 221, 235, 0.2);
+        }
+
+        .client-card h3 {
+            font-size: 1.5rem;
+            color: #ff007a;
+            margin-bottom: 15px;
+        }
+
+        .client-card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #00ddeb;
+            color: #1e1e2f;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .client-card a:hover {
+            background: #ff007a;
+            color: #ffffff;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #2a2a4a, #1e1e2f);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 221, 235, 0.5);
+            animation: scaleIn 0.5s ease;
+        }
+
+        .modal.closing .modal-content {
+            animation: scaleOut 0.3s ease forwards;
+        }
+
+        .modal.closing {
+            animation: fadeOut 0.3s ease forwards;
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            background: -webkit-linear-gradient(#00ddeb, #ff007a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            color: #b0b0d0;
+            margin-bottom: 15px;
+        }
+
+        .modal-content input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .close-btn {
+            background: #ff007a;
+            color: #ffffff;
+        }
+
+        .hide-btn, .login-btn, .verify-btn {
+            background: #00ddeb;
+            color: #1e1e2f;
+        }
+
+        .modal-buttons button:hover {
+            transform: scale(1.1);
+            background: #ffffff;
+            color: #1e1e2f;
+        }
+
+        /* Editable Styles */
+        .editable:empty:before {
+            content: attr(data-placeholder);
+            color: #b0b0d0;
+        }
+
+        .save-btn {
+            display: none;
+            margin: 20px auto;
+            padding: 12px 30px;
+            background: #00ff00;
+            color: #1e1e2f;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .save-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer Styles */
+        .footer {
+            margin-top: 50px;
+            font-size: 1rem;
+        }
+
+        .footer p {
+            background: linear-gradient(90deg, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 5s ease infinite;
+        }
+
+        .discord-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .discord-btn {
+            padding: 12px 25px;
+            background: #7289da;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .discord-btn:hover {
+            transform: scale(1.1);
+            background: #ff007a;
+        }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes scaleOut { from { transform: scale(1); opacity: 1; } to { transform: scale(0.5); opacity: 0; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        @keyframes rainbow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2rem; }
+            .section h2 { font-size: 1.5rem; }
+            .client-card h3 { font-size: 1.2rem; }
+            .modal-content { padding: 20px; max-width: 90%; }
+            .modal-content h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="welcomeModal">
+        <div class="modal-content">
+            <h2>Chào Mừng Đến Với Web Tải Client Roblox!</h2>
+            <p>Trang web chuyên nghiệp cung cấp các client Roblox hack trên điện thoại, được thiết kế bởi <strong>HieuDz</strong>.</p>
+            <p>Tham gia cộng đồng của chúng tôi:</p>
+            <p><a href="https://discord.gg/3yRgPWxFPN" target="_blank">Discord Chính</a> | <a href="https://discord.gg/qUgx8PnJu9" target="_blank">Discord Phụ</a></p>
+            <p>Ngoài các client mobile dưới đây, chúng tôi còn cung cấp <strong>bypasser</strong> và <strong>executor cho PC</strong>. Tham gia cả 2 server để cập nhật thông tin mới nhất!</p>
+            <div class="modal-buttons">
+                <button class="close-btn" onclick="closeModal('welcomeModal')">Đóng</button>
+                <button class="hide-btn" onclick="hideModalForTwoHours()">Ẩn 2 giờ</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h2>Đăng Nhập Admin</h2>
+            <input type="password" id="adminPassword" placeholder="Nhập mật khẩu">
+            <div class="modal-buttons">
+                <button class="login-btn" onclick="loginAdmin()">Đăng Nhập</button>
+                <button class="close-btn" onclick="closeModal('loginModal')">Đóng</button>
+            </div>
+            <div id="verifySection" style="display: none;">
+                <p>Mã xác thực đã được gửi qua email!</p>
+                <input type="text" id="verifyCode" placeholder="Nhập mã 5 số">
+                <button class="verify-btn" onclick="verifyCode()">Xác Thực</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 contenteditable="false" data-placeholder="Danh Sách Tải Client Roblox">Danh Sách Tải Client Roblox</h1>
+            <p contenteditable="false" data-placeholder="Thiết kế bởi HieuDz - Hiện đại & Chuyên nghiệp">Thiết kế bởi HieuDz - Hiện đại & Chuyên nghiệp</p>
+            <button class="admin-login-btn" onclick="showLoginModal()">Admin Login</button>
+        </div>
+
+        <div class="section" id="internationalSection">
+            <h2 contenteditable="false" data-placeholder="Client Roblox Quốc Tế (Auto Update)">Client Roblox Quốc Tế (Auto Update)</h2>
+            <div class="client-list" id="internationalClients">
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Delta">Delta</h3>
+                    <a href="https://cdngloopup.cc/delta_android/" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Krln">Krln</h3>
+                    <a href="https://cdnwrd2.com/r/krnl/krnl.apk" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Fluxus">Fluxus</h3>
+                    <a href="https://fluxteam.cc/android" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Cryptic">Cryptic</h3>
+                    <a href="https://crypticexecutor.com/ce.apk" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Arceus X Neo">Arceus X Neo</h3>
+                    <a href="https://arceusx.com/arceusx" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Code X">Code X</h3>
+                    <a href="https://codexexecutor.net/android-download/" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="vngSection">
+            <h2 contenteditable="false" data-placeholder="Client VNG (Auto Update)">Client VNG (Auto Update)</h2>
+            <div class="client-list" id="vngClients">
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Cryptic VNG">Cryptic VNG</h3>
+                    <a href="https://crypticexecutor.com/cevng.apk" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Arceus X Neo VNG">Arceus X Neo VNG</h3>
+                    <a href="https://arceusx.com/arceusxvng" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+                <div class="client-card">
+                    <h3 contenteditable="false" data-placeholder="Code X VNG">Code X VNG</h3>
+                    <a href="https://codexexecutor.net/vng-android-download/" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                    <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                    <img class="client-image" style="display: none; max-width: 100%; margin-top: 10px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p contenteditable="false" data-placeholder="Created By HieuDz - © 2025">Created By HieuDz - © 2025</p>
+            <div class="discord-buttons">
+                <a href="https://discord.gg/3yRgPWxFPN" target="_blank" class="discord-btn">Discord Chính</a>
+                <a href="https://discord.gg/qUgx8PnJu9" target="_blank" class="discord-btn">Discord Phụ</a>
+            </div>
+        </div>
+        <button class="save-btn" id="saveBtn" onclick="saveChanges()">Save</button>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = "hieudz123"; // Mật khẩu admin (có thể thay đổi)
+        let verificationCode = null;
+        let isAdmin = false;
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('closing');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.classList.remove('closing');
+            }, 300);
+        }
+
+        function hideModalForTwoHours() {
+            const modal = document.getElementById('welcomeModal');
+            modal.classList.add('closing');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.classList.remove('closing');
+                const now = new Date().getTime();
+                const twoHours = 2 * 60 * 60 * 1000;
+                localStorage.setItem('hideModalUntil', now + twoHours);
+            }, 300);
+        }
+
+        window.onload = function() {
+            const hideUntil = localStorage.getItem('hideModalUntil');
+            const now = new Date().getTime();
+            if (hideUntil && now < hideUntil) {
+                document.getElementById('welcomeModal').style.display = 'none';
+            }
+            loadSavedData();
+        }
+
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('verifySection').style.display = 'none';
+        }
+
+        function loginAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                verificationCode = Math.floor(10000 + Math.random() * 90000); // Mã 5 số ngẫu nhiên
+                alert(`Mã xác thực đã gửi qua email: ${verificationCode}\n(NOTE: Đây là giả lập, trong thực tế cần backend để gửi email)`);
+                console.log("Email sent: Chào bạn, tài khoản admin web lấy client Roblox by HieuDz muốn xác thực đó là bạn, đây là code xác thực của bạn: " + verificationCode);
+                document.getElementById('verifySection').style.display = 'block';
+            } else {
+                alert("Mật khẩu sai!");
+            }
+        }
+
+        function verifyCode() {
+            const inputCode = document.getElementById('verifyCode').value;
+            if (inputCode == verificationCode) {
+                alert("Đăng nhập thành công! Bạn có thể chỉnh sửa website.");
+                isAdmin = true;
+                closeModal('loginModal');
+                enableEditing();
+            } else {
+                alert("Mã xác thực sai!");
+            }
+        }
+
+        function enableEditing() {
+            document.querySelectorAll('[contenteditable="false"]').forEach(el => {
+                el.contentEditable = true;
+                el.classList.add('editable');
+            });
+            document.querySelectorAll('.image-upload').forEach(input => input.style.display = 'block');
+            document.getElementById('saveBtn').style.display = 'block';
+        }
+
+        function uploadImage(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = input.nextElementSibling;
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveChanges() {
+            const data = {
+                header: {
+                    title: document.querySelector('.header h1').innerText,
+                    subtitle: document.querySelector('.header p').innerText
+                },
+                international: [],
+                vng: [],
+                footer: document.querySelector('.footer p').innerText
+            };
+
+            document.querySelectorAll('#internationalClients .client-card').forEach(card => {
+                data.international.push({
+                    name: card.querySelector('h3').innerText,
+                    link: card.querySelector('a').href,
+                    image: card.querySelector('.client-image').src || ''
+                });
+            });
+
+            document.querySelectorAll('#vngClients .client-card').forEach(card => {
+                data.vng.push({
+                    name: card.querySelector('h3').innerText,
+                    link: card.querySelector('a').href,
+                    image: card.querySelector('.client-image').src || ''
+                });
+            });
+
+            localStorage.setItem('websiteData', JSON.stringify(data));
+            alert("Đã lưu thay đổi! (Lưu cục bộ bằng localStorage, cần backend để cập nhật cho mọi người)");
+            disableEditing();
+        }
+
+        function loadSavedData() {
+            const savedData = localStorage.getItem('websiteData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                document.querySelector('.header h1').innerText = data.header.title;
+                document.querySelector('.header p').innerText = data.header.subtitle;
+                document.querySelector('.footer p').innerText = data.footer;
+
+                const intClients = document.getElementById('internationalClients');
+                intClients.innerHTML = '';
+                data.international.forEach(client => {
+                    intClients.innerHTML += `
+                        <div class="client-card">
+                            <h3 contenteditable="false" data-placeholder="${client.name}">${client.name}</h3>
+                            <a href="${client.link}" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                            <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                            <img class="client-image" src="${client.image}" style="${client.image ? 'display: block;' : 'display: none;'} max-width: 100%; margin-top: 10px;">
+                        </div>`;
+                });
+
+                const vngClients = document.getElementById('vngClients');
+                vngClients.innerHTML = '';
+                data.vng.forEach(client => {
+                    vngClients.innerHTML += `
+                        <div class="client-card">
+                            <h3 contenteditable="false" data-placeholder="${client.name}">${client.name}</h3>
+                            <a href="${client.link}" target="_blank" contenteditable="false" data-placeholder="Tải xuống">Tải xuống</a>
+                            <input type="file" class="image-upload" style="display: none;" onchange="uploadImage(this)">
+                            <img class="client-image" src="${client.image}" style="${client.image ? 'display: block;' : 'display: none;'} max-width: 100%; margin-top: 10px;">
+                        </div>`;
+                });
+            }
+        }
+
+        function disableEditing() {
+            document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+                el.contentEditable = false;
+                el.classList.remove('editable');
+            });
+            document.querySelectorAll('.image-upload').forEach(input => input.style.display = 'none');
+            document.getElementById('saveBtn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
