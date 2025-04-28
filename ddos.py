@@ -1512,7 +1512,7 @@ def print_logo():
     logo = f"""
 {bcolors.OKCYAN}        ╔══════════════════════════════════════╗
         ║        DHHzDoS - DDoS Attack Tool     ║
-        ║        Version: {__4.0__}               ║
+        ║        Version: {__VIP__}               ║
         ║        Developed by HieuDz™           ║
         ╚══════════════════════════════════════╝{bcolors.RESET}
     """
